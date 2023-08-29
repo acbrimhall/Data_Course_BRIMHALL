@@ -9,11 +9,3 @@ Update 6-There is no glory in practice, but without practice ther is no glory.
 Update 7-Success is nothing more than a few straightforward disciplines put into daily practice.
 Update 8-Knowledge is of no value unless you put it into practice
 Update 9-Practice the philosophy of continuous improvement. Get a little bit better every single day.
-<<<<<<< HEAD
-Update 10-The more you sweat in practice, the less you bleed in battle.
-Update 10-The more you sweat in practice, the less you bleed in battle.
-=======
->>>>>>> 3a4fa23199c021180ce087917b163686f94f1c53
-Update 10-
-The more you sweat in practice, the less you bleed in battle.
-Update 10-The more you sweat in practice, the less you bleed in battle.
