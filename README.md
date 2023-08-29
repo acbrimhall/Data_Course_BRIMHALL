@@ -15,3 +15,4 @@ Update 3-Practice is the best of all instructors.
 Update 4-Practice creates confidence. Confidence empowers you.
 Update 5-The difference between ordiary and extraordinary is practice.
 Update 6-There is no glory in practice, but without practice ther is no glory.
+Update 7-Success is nothing more than a few straightforward disciplines put into daily practice.
