@@ -1,6 +1,6 @@
-# Data_Course_BRIMHALLThis README file contains information about my uploaded assignments
+# Data_Course_BRIMHALL
 This README file contains information about my uploaded assignments
-Update 1
+Update 1-Don't practice until you get it right. Practice until you can't get it wrong.
 Update 2-Practice makes perfect
 Update 3-Practice is the best of all instructors.
 Update 4-Practice creates confidence. Confidence empowers you.
