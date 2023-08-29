@@ -16,3 +16,4 @@ Update 10-The more you sweat in practice, the less you bleed in battle.
 >>>>>>> 3a4fa23199c021180ce087917b163686f94f1c53
 Update 10-
 The more you sweat in practice, the less you bleed in battle.
+Update 10-The more you sweat in practice, the less you bleed in battle.
