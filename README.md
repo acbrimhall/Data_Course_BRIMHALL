@@ -1,1 +1,12 @@
 # Data_Course_BRIMHALL
+This README file contains information about my uploaded assignments
+Update 1-Don't practice until you get it right. Practice until you can't get it wrong.
+Update 2-Practice makes perfect
+Update 3-Practice is the best of all instructors.
+Update 4-Practice creates confidence. Confidence empowers you.
+Update 5-The difference between ordiary and extraordinary is practice.
+Update 6-There is no glory in practice, but without practice ther is no glory.
+Update 7-Success is nothing more than a few straightforward disciplines put into daily practice.
+Update 8-Knowledge is of no value unless you put it into practice
+Update 9-Practice the philosophy of continuous improvement. Get a little bit better every single day.
+Update 10-The more you sweat in practice, the less you bleed in battle.
