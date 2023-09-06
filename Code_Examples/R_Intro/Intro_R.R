@@ -32,18 +32,24 @@
 bob = 3+4 # This assigns the evaluated function (3 + 4) to an object (like a variable) called "bob"
 # bob should equal 7
 jane <- 5*2 # This assigns the value of 5 times 2 to an object called "jane" - Either symbol works
+jane - bob
+jane - michael #michael has not been assigned so the Error: object 'michael' not found
+jane - "michael" #quotes tell the computer to interpret this as a word (string) 
 
 # LOGICAL EVALUATIONS
 
 # R can process a host of logical evaluations.  For example we can ask whether bob or jane is greater...
 bob > jane # This gives us the value "FALSE" - bob is 7, jane is 10
 bob < jane # This gives the value "TRUE"
-bob %in% c(1,2,3,4,5,6,7)
-c(1,2,3,4,5,6,7) %in% bob
-bob >= jane
-bob == jane
-jane == 10
-(jane == 10) + 1   #!???
+bob %in% c(1,2,3,4,5,6,7) #is bob(7) in this subset of numbers
+bob == 7 #is bob equal to 7
+bob >= 4 #is bob greater than or equal to 4
+c(1,2,3,4,5,6,7) %in% bob #is this subset of numbers equal to bob
+bob >= jane #is bob greater than or equal to jane
+bob == jane #is bob equal to jane
+jane == 10 #is jane equal to 10
+(jane == 10) + 1   #!??? ##True is equal to 1 and False is equal to 0
+bob != 7 # is bob not equal to 7
 
 # The values "TRUE" and "FALSE" are special reserved values. You should never use them as a name for an object!!!
 # This goes for numbers as well. The number "3" cannot be assigned to any other value, for obvious reasons.
@@ -63,14 +69,25 @@ jane == 10
 # That stands for "concatenate" and allows you to enter a series of values to be saved to a single object:
 billy = c(2,3,4,5,6) # "billy" is now a NUMERIC VECTOR of 5 values
 # c() requires you to separate the various elements with a comma
+is.vector (billy) #A vector is a list of values of the same type in an order
+
 
 # This works for STRINGS as well. Strings are made up of characters
 suzy = c("This","is","a","character","vector") # notice how each string is enclosed in quotes. That tells R it is a string
+
+billy + suzy #doesn't work due to numerical and character vectors
+tommy <- c("1", 2, 3, 4, 5, TRUE, NA) #Will convert all the numerical values to a character value in the list
 
 # Think of these values (billy and suzy) like lists.  They have inherent order, so we can access any part of them:
 
 billy[1] # The brackets [] allow you to pick one or more elements from an object.  Here, we asked for the first element
 # What value would billy[3] give you?
+billy [3] #Gives the third value in the vector billy
+billy [1, 3] #does not work with numerical vectors
+billy [c(1, 3)] #The c() combines to allow the element to be pulled
+
+suzy [c(4:5)]
+suzy [4:5] #works on character vectors
 
 # If our vectors are the same lengths, we can easily combine them to form "2-dimensional" data. Most data you
 # want to explore will probably be 2-dimensional. If you have a series of observations and measured several variables
@@ -81,14 +98,17 @@ observation = c(1,2,3,4,5,6,7,8,9,10) # our vector of observations from a reeate
 wingspan = c(1.2,1.4,1.0,1.2,1.8,2.0,2.2,1.1,2.3,2.0) # our vector of wingspans
 mass = c(0.43,0.44,0.32,0.44,0.52,0.55,0.56,0.42,0.51,0.57) # our vector of mass
 
+length(observation)
+
+
 # we now have three vectors that are the same length. We can stick them together into a "matrix"
 # one way to do this is the cbind() function. It stands for "column bind"
 
 cbind(observation,wingspan,mass) # this will show us our matrix, but we want to assign it to an object!
-
+                                 #cbind places the listed variables as columns
 data = cbind(observation,wingspan,mass) # assigned to an object called "data"
 
-data
+data #table
 
 # Accessing elements of 2-dimensional data
 
@@ -97,7 +117,11 @@ data
 # in R, the brackets to access an element accept input as follows: [row,column]
 # So to get the element in row 1, column 3 we write:
 
-data[1,3]
+data[1,3] #Always [row , column]
+data[ , 3] #leaving a blank on the rows gives all the rows for column 3
+data[5, ] #leaving column blank gives the values of row 5 for all columns
+data[ ,3] > 0.5
+data[data[ ,3]>0.5, ] #gave all the data on column 3 that has a value greater than 0.5 for all rows
 
 # This kind of access is very useful. To add the mass of the first 5 flies we caught, you can write:
 
