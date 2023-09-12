@@ -12,5 +12,3 @@ usethis::git_vaccinate() # helps prevent you from leaking personal info to GitHu
 # Check your configuration
 gh::gh_whoami()
 usethis::git_sitrep()
-
-
