@@ -6,7 +6,6 @@
 # Note: Do not erase the original code, just comment it out and put your own equivalent code below each section
 # i.e., change each line of indicated code to a tidy version that does the same thing.
 
-
 library(tidyverse)
 
 ##########################

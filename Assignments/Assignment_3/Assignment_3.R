@@ -77,7 +77,7 @@
     names(dat) #column heads
     dim(dat) #gives a numeric vector of 2 (returns a vector)
       #rows and column lengths
-      dim(dat)[1] #gives numbr of rows in vector
+      dim(dat)[1] #gives number of rows in vector
       nrow(dat) #gives number of rows in vector
     head(dat) #gives first six rows
   
@@ -203,6 +203,8 @@
 # 2.Create a new object called iris_chr which is a copy of iris, 
 #except where every column is a character class
 
+  iris_chr <- lapply(iris, as.character)
+    #condensed version of the following 5 lines:
   iris_chr <- iris
     iris_chr$Sepal.Length <- as.character(iris$Sepal.Length)
     iris_chr$Sepal.Width  <- as.character(iris$Sepal.Width)
@@ -217,6 +219,7 @@
 
   Sepal.Area <- iris$Sepal.Length*iris$Sepal.Width
     #Sepal.Area #code check
+    
 
 # 4.Add Sepal.Area to the iris data frame as a new column
 

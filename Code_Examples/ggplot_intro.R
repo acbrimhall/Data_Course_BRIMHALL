@@ -3,8 +3,13 @@
 # Load ggplot2 (it is included in the tidyverse package) ####
 library(tidyverse)
 
+options(scipen = 999)
+  #changing options
+  #scipen changes scientific notation (999 will have only large numbers represented with scientific notation)
+
 # Load the data we will work with (built-in to ggplot)
 data("midwest", package = "ggplot2")
+  #demographics for midwestern states by county
 
 # Intro to ggplot syntax
 
@@ -25,9 +30,10 @@ data("midwest", package = "ggplot2")
 
 # Let’s initialize a basic ggplot based on the midwest dataset that we loaded.
 ggplot(midwest) # what do you see?
+  #acknowledges that there is an appropriate data set
 
 # give it some aesthetics to work with...
-ggplot(midwest, aes(x=area, y=poptotal))  # area and poptotal are columns in 'midwest'
+ggplot(data=midwest, mapping=aes(x=area, y=poptotal))  # area and poptotal are columns in 'midwest'
 
 # A blank ggplot is drawn. Even though the x and y are specified, there are no points or lines in it. 
 # This is because, ggplot doesn’t assume that you meant a scatterplot or a line chart to be drawn. 
@@ -43,13 +49,22 @@ ggplot(midwest, aes(x=area, y=poptotal)) + geom_point() # The "+" tells ggplot t
 # Add another geom ... a trendline:
 ggplot(midwest, aes(x=area, y=poptotal)) + geom_point() + geom_smooth(method = "lm")
 # The line of best fit is in blue. Can you find out what other method options are available for geom_smooth? 
+ggplot(midwest, aes(x=area, y=poptotal)) + geom_point() + geom_smooth(method = 'lm', linetype = 2, color = 'red')
+ggplot(midwest, aes(x=area, y=poptotal, color=state)) + geom_point() + geom_smooth(method = 'lm', linetype = 2, color = 'red')
+  #Only aes knows to look for the column
+  #Mapping gives the overall values, while subsiquent geoms will override pieces of the overall
 
 # Store your plot as an object to add to...
 p <- ggplot(midwest, aes(x=area, y=poptotal)) + geom_point() + geom_smooth(method = "lm")
+  class(p)
+  p
 
 # Zoom in
 p + lims(x=c(0,0.1),y=c(0,1000000)) # what did this do?
+  #lims changes the scale of the axis'
 p + coord_cartesian(xlim=c(0,0.1), ylim=c(0, 1000000)) # how is this different?
+  #coord is a zoom in feature
+p + facet_wrap(~state, scales = 'free')
 
 # Store this new zoomed-in plot
 p2 <- p + coord_cartesian(xlim=c(0,0.1), ylim=c(0, 1000000))
@@ -67,6 +82,12 @@ ggplot(midwest, aes(x=area, y=poptotal)) +
   geom_smooth(method="lm") + 
   coord_cartesian(xlim=c(0,0.1), ylim=c(0, 1000000)) + 
   labs(title="Area Vs Population", subtitle="From midwest dataset", y="Population", x="Area", caption="Midwest Demographics")
+
+#Line 1: getting data and assigning global aesthetics that further lines will inherit
+  #plots data points using the inherited global factors
+  #create a line using linear regression using global factors
+  #changing the scale of the inherited axis', without deleting any points
+  #creates labels by translating quoted words into designated locations on a plot
 
 # Let's make it pretty ####
 
@@ -96,8 +117,14 @@ p3 + scale_color_brewer(palette = "Set1")
 library(RColorBrewer)
 brewer.pal.info
 
+  my_pallette <- c("#166769", "#4a090c", "#617a26", "#262a8e", "#c1593c")
+  p3 + scale_colour_manual(values=my_pallette)
+
+  
 # Make your own and take a peek at it:
 library(colorblindr)
+  colorBlindness
+  colorblindcheck::palette_bivariate_plot(my_pallette)
 pal = c("#c4a113","#c1593c","#643d91","#820616","#477887","#688e52",
         "#12aa91","#705f36","#8997b2","#753c2b","#3c3e44","#b3bf2d",
         "#82b2a4","#894e7d","#a17fc1","#262a8e","#abb5b5","#000000")
@@ -116,7 +143,8 @@ p3 + theme_dark()
 
 # You can also transform your data right in ggplot:
 p4 = ggplot(midwest, aes(x=area/max(midwest$area), y=log10(poptotal))) + 
-  geom_point(aes(color=state),size=3) + 
+  geom_point(aes(color=state),size=2, alpha = 0.5, shape= 4) + 
+  geom_point(size=0.5, color ='black') +
   geom_smooth(method="lm",color="firebrick") + 
   labs(title="Area Vs Population", subtitle="From midwest dataset", color = "State",
        y="log10 Population", x="Area (proportion of max)", caption="Midwest Demographics") +
@@ -148,21 +176,42 @@ p5 + geom_bar(stat="identity") # something wrong with this picture!
 library(carData)
 data("MplsStops")
 
-ggplot(MplsStops, aes(x=lat)) + geom_histogram() + labs(title = "Latitude of police stops in Minneapolis - 2017")
-ggplot(MplsStops, aes(x=lat, fill = race)) + geom_density(alpha = .5) + labs(title = "Latitude of police stops in Minneapolis - 2017")
+ggplot(MplsStops, 
+       aes(x=lat)) + 
+  geom_histogram() + 
+  labs(title = "Latitude of police stops in Minneapolis - 2017")
+
+ggplot(MplsStops, 
+       aes(x=lat, fill = race)) + 
+  geom_density(alpha = .5) + 
+  labs(title = "Latitude of police stops in Minneapolis - 2017")
 
 
-ggplot(MplsStops, aes(x=lat, fill = race)) + geom_histogram() + labs(title = "Latitude of police stops in Minneapolis - 2017") +
+ggplot(MplsStops, 
+       aes(x=lat, fill = race)) + 
+  geom_histogram() + 
+  labs(title = "Latitude of police stops in Minneapolis - 2017") +
   facet_wrap(~race)
 
 
 
 # Look at lat AND lon
-ggplot(MplsStops, aes(x=lat,y=long,color=race)) + geom_point() + theme_minimal()
+ggplot(MplsStops, 
+       aes(x=lat,y=long,color=race)) + 
+  geom_point() + 
+  theme_minimal()
 
-ggplot(MplsStops, aes(x=lat,y=long,color=race)) + geom_point() + theme_minimal() + facet_wrap(~race) # "overplotting!?"
+ggsave("./test.png", width = 6, height = 6, dpi = 300)
+    ###Saves last ggplot created
+    ##Will overright a file with the same name and file type
 
+ggplot(MplsStops, 
+       aes(x=lat,y=long,color=race)) + 
+  geom_point() + 
+  theme_minimal() + 
+  facet_wrap(~race) # "overplotting!?"
 
+table(MplsStops$race)
 ggplot(MplsStops,)
 
 # Check out the issue with some random data
