@@ -49,7 +49,7 @@
       #Add loess curves WITHOUT standard error shading
       #Keep scales “free” in each facet
 
-  plot_III <- 
+  Plot_III <- 
     ggplot(A_States,
            aes(x = Last_Update,
                y = Deaths,
@@ -59,7 +59,7 @@
       facet_wrap(~Province_State,
                  scales = 'free')         +
       geom_smooth()
-  plot_III
+  Plot_III
   
 #4  ##########################
 #IV.(Back to the full dataset) Find the “peak” of Case_Fatality_Ratio for 
@@ -146,13 +146,13 @@
   #Even with this partial data set (not current), you should be able to see that
   #(within these dates), different states had very different fatality ratios.
 
-  plot_V <-  
+  Plot_V <-  
     ggplot(state_max_fatality_ratio,
            aes(x = Province_State,
                y = Maximum_Fatality_Ratio))   +
       geom_boxplot()                          +
       theme(axis.text.x.bottom = element_text(angle = 90))
-  plot_V
+  Plot_V
   
 #6  ##########################
 #VI.(BONUS 10 pts) Using the FULL data set, plot cumulative deaths for the 
