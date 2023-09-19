@@ -5,7 +5,7 @@
     library(dplyr)
     library(tibble)
     library(ggplot2)
-  
+    options(scipen = 999)
   #Column Name & Description
     #Province_State
       #State (or DC)
@@ -74,11 +74,11 @@
   ccdata
     #Full Data set
   
-  C <- ccdata[ ,c("Province_State", "Case_Fatality_Ratio")]
+  Z <- ccdata[ ,c("Province_State", "Case_Fatality_Ratio")]
     #Creates a new data frame with all rows of the columns Province_State,
     #and Case_Fatality_Ratio from the main data set (ccdata)
   
-  Maximum_Fatality_Ratio <- 
+  ZMax_Fat <- 
     lapply(split(ccdata, ccdata$Province_State), 
            function (y) max(y$Case_Fatality_Ratio, 
                             na.rm = TRUE))
@@ -91,38 +91,38 @@
       #na.rm means all N/A are removed to allow the data to find the max.
   
   
-  C$Maximum_Fatality_Ratio <- 
-      Maximum_Fatality_Ratio
-    #Creates a column within the data frame C. 
+  Z$Maximum_Fatality_Ratio <- 
+     ZMax_Fat
+    #Creates a column within the data frame Z 
        #Column is pulled from the data frame list Maximum_Fatality_Ratio
   
-  M <- 
-      C[ , c('Province_State', 
+  Y <- 
+      Z[ , c('Province_State', 
              'Maximum_Fatality_Ratio')] 
-    #Creates a data frame M.
-      #Uses data frame C as a template.
-        #All rows will be pulled from relavant columns.
+    #Creates a data frame Y.
+      #Uses data frame Z as a template.
+        #All rows will be pulled from relevant columns.
         #The columns Province_State and Maximum_Fatality_Ratio are pulled.
   
-  smfr <- 
-     dplyr::distinct(M)
-    #Creates a data frame smfr.
+  X <- 
+     dplyr::distinct(Y)
+    #Creates a data frame X
        #Using the dplyr function distinct all repeated rows are eliminated from 
        #the data set so only one set of each group (Province_State) is listed.
   
-  smfr[order(-as.numeric(smfr$Maximum_Fatality_Ratio)), 
+  X[order(-as.numeric(X$Maximum_Fatality_Ratio)), 
        "Province_State"]  
-    #Preview list of
-      #From the smfr data frame, order of the Province_States column if 
+    #Preview list 
+      #From the X data frame, order of the Province_States column if 
         #rearranged according the decreasing (- ; high to low) numerical 
         #values of column Maximum_Fatality_Ratio.
   
   state_max_fatality_ratio <- 
-        smfr 
+        X 
     #A new data frame state_max_fatality_ratio is created from the template smfr.
   
   state_max_fatality_ratio$Province_State <- 
-        smfr[order(as.numeric(smfr$Maximum_Fatality_Ratio), 
+        X[order(as.numeric(X$Maximum_Fatality_Ratio), 
              decreasing = TRUE), 
              "Province_State"]  
     #A new column in state_max_fatality_ratio data frame is named Province_State
@@ -160,6 +160,17 @@
     #You’ll need to read ahead a bit and use the dplyr package functions 
     #group_by() and summarize() to accomplish this.
   
-  ccdata
-    #Full Data set
+  USA_cumulative_deaths <- 
+    aggregate(ccdata$Deaths, by = list(Last_Update=ccdata$Last_Update), FUN = sum)
+  
+  colnames(USA_cumulative_deaths) <- c("Last_Update","Deaths_Per_Day")
+ 
+  Plot_VI <- 
+    ggplot(USA_cumulative_deaths,
+           aes(x=Last_Update,
+               y=Deaths_Per_Day))        +
+      geom_point()                          +
+      xlab("Last Update")                   +
+      ylab('Cumulative Deaths')             
+  Plot_VI    
   
