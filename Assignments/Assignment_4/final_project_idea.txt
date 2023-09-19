@@ -1,11 +1,19 @@
 I would like to examine the relationship between ADHD and and EEG recordings.
+
 There are several possible data sets on Google's Dataset Search, including but not limited to:
 	CHILDREN WITH ADHD SHOWN DIFFERENT ALPHA, BETA AND SMR EEG BANDS DURING HABIL MOTOR TASKS WITH HIGH ATTENTION DEMAND
 	FOCUS: EEG brain recordings of ADHD and non-ADHD individuals during gameplay
 	EEG data for ADHD / Control children
 	Data_Sheet_1_Deep Learning Convolutional Neural Networks Discriminate Adult ADHD From Healthy Individuals on the Basis of Event-Related Spectral EEG.PDF
 	A Dataset of EEG Signals from Adults with ADHD and Healthy Controls: Resting State, Cognitive function, and Sound Listening Paradigm
+
 I would like to compile some of this data into one larger data set to examine the relationship between ADHD and "abnormalities" in EEG recordings when compared to a control.
-In particular the data set found at this web address: https://frontiersin.figshare.com/articles/dataset/Table_1_EEG_Frequency_Bands_in_Psychiatric_Disorders_A_Review_of_Resting_State_Studies_xlsx/7563188, seems like it would be a good fit for potential use in my final project. 
-There is also data on this site: https://ieee-dataport.org/open-access/eeg-data-adhd-control-children, but I was unable to access it without a membership unfortunatley. It may be a good source for additional data if neccessary.
-I did download data from the site: https://data.mendeley.com/datasets/6k4g25fhzg/1, but the files seemed to be too large for my computer to load and were in ther .mat format.
+
+In particular the data set found at this web address which seems like it would be a good fit for potential use in my final project. 
+	https://frontiersin.figshare.com/articles/dataset/Table_1_EEG_Frequency_Bands_in_Psychiatric_Disorders_A_Review_of_Resting_State_Studies_xlsx/7563188
+
+There is also data on this site, but I was unable to access it without a membership unfortunatley. It may be a good source for additional data if neccessary.
+	https://ieee-dataport.org/open-access/eeg-data-adhd-control-children
+
+I did download data from the site below, but the files seemed to be too large for my computer to load and were in ther .mat format.
+	https://data.mendeley.com/datasets/6k4g25fhzg/1
