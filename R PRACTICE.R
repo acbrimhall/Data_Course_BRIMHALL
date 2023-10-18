@@ -1,3 +1,4 @@
+#############################
 iris #practice data set that comes with R
 iris[1, ] #Shows column headers and row 1
 View(iris) #Pulls up data set
@@ -31,7 +32,7 @@ for (i in y) {
 
 
 
-
+#############################
 # WEEK 4
 library(tidyverse)
   #should be seen at the top of almost every
@@ -98,7 +99,7 @@ ggplot(mpg,
 
   #Web-Scrapping
     #Use code to scrape a website
-
+#############################
   
 #1-Give ggplot a data frame
 #2-Map column names to various aspects of the plot with aes()
@@ -122,7 +123,6 @@ ggplot(mpg,
       #the human eye, and color-blind friendly
     #facet_wrap()
       #~ tilda means "as a function of"
-
 ##getwd()
 ## Assignment 2
 #Only saves your text, reopening will require you rerun the code
@@ -138,7 +138,7 @@ ggplot(mpg,
   csv_files
 #? before the command will pull up the Help information
 #usage, arguments and examples are usefull portions of the help guide
-  ?length()
+  #?length()
 #gives the number of the x within the parenthesis
   length(csv_files)
 #1:10 gives all the numbers between 1 and 10
@@ -185,7 +185,6 @@ ggplot(mpg,
                         recursive = TRUE,
                        pattern = ".csv")) {
     print(readLines(j, n=1))}
-
   
    #Prep
    library(tidyverse)
@@ -277,3 +276,744 @@ ggplot(mpg,
    #V
    
    
+   
+# PENGUIN PRACTICE WEEK 5
+#############################
+library(tidyverse)
+library(palmerpenguins)
+library(ggimage)
+
+
+#THE PIPE:
+  # %>% 
+#CRT +SHIFT + M
+
+penguins <-  penguins
+
+glimpse(penguins)
+    #glimpse a sample of the data frame
+
+penguins %>% glimpse
+    #Looking at Penguins glimpse it
+
+1:10 %>% max()
+
+c(1,2,3,4,5) %>% max()
+
+max(c(1,2,3,4,5))
+  #make a vector with c()
+    #take the max of that vector
+
+letters
+letters %>% grep(e)
+  #grep the first argument is what to look for
+    #grep second argument is where to look
+  #THE PIPE inserts as the first argument
+
+penguins %>% dim
+penguins %>% filter()
+penguins %>% arrange()
+penguins %>% ggplot(aes())
+  #Tidyverse packages all have data frame as the first argument
+
+penguins %>% 
+  na.omit() %>% 
+  ggplot(aes(x = flipper_length_mm,
+             y =body_mass_g,
+             color = sex))                                         +
+  geom_boxplot(alpha = 1, 
+               size= 0.75)                                         +
+  geom_point(size = 2,
+             shape = 12)                                           +
+  facet_wrap(~species, 
+             scales = 'free')                                      +
+  labs(title = 'Species Relation of Body Mas to Flipper lenght')   +
+  theme(axis.title.x = element_text('Flipper Length (mm)'),
+        axis.title.y = element_text('Body Mass (g)'),
+        legend.background =element_rect(fill = 'gold'),
+        legend.title.align = .5,
+        panel.grid = element_line(linewidth = 0.3,
+                                  color = 'orange'),
+        panel.background = element_rect(fill = 'steelblue'))
+
+
+
+penguins %>% 
+  ggplot(aes(x=bill_length_mm,
+             y=bill_depth_mm))
+  geom_image(aes(image="./",
+                 size=0.1))
+
+  
+#############################
+#install.packages("tidyverse")
+#install.packages("dplyr")
+#install.packages("ggplot2")
+#install.packages("palmerpenguins")
+#install.packages("devtools")
+#install.packages("ggpubr")
+#install.packages("ggimage")  
+#install.packages("ggforce")
+#installed.packages("gganimate")  
+#install.packages("GGally")
+#install.packages("plotly")
+
+  library(tidyverse)
+  library(dplyr)
+  library(ggplot2)
+  library(palmerpenguins)
+    penguins <- palmerpenguins
+  library(ggimage)
+  devtools::install_github("thomasp85/patchwork")
+  library(patchwork)
+  library(ggpubr)
+  library(ggimage)
+  library(ggforce)
+  library(gganimate)
+    ####gganimate transition.reveal = important for Exam 2
+  library(GGaly)
+  library (plotly)
+  library(kableExtra)
+  
+
+GGally::ggpairs(penguins)
+
+
+df <- read_delim("Data/DatasaurusDozen.tsv")
+
+
+df%>%
+    group_by(dataset) %>% 
+    summarise(mean_x = mean(x),
+              mean_y = mean(y),
+              sd_x = sd(x))  
+  
+  
+df %>%
+    ggplot(aes(x,y),) +
+    geom_point()      +
+    facet_wrap(~dataset)
+  
+#Minimum ink; Maximum information
+
+p <- ggplot(x = penguins$body_mass_g, 
+      y =penguins$flipper_length_mm) +
+
+
+ggplotly(p)
+#gives interactive ability on graphs
+
+
+
+install.packages("kableExtra")
+library(kableExtra)
+#easily create tables
+
+  head(penguins) %>% 
+    kable() %>% 
+    kable_classic(lightable_options = "hover")
+  
+iris <- iris
+
+p2 <- 
+  iris %>% 
+  mutate(blink = Sepal.Width < 2) %>% 
+  ggplot(aes(x=Sepal.Length,
+             y = Sepal.Width,
+             color = Species)) +
+  geom_point()  +
+  gganimate::transition_states(Species) +
+  gganimate::enter_appear()
+  
+p
+p2
+is.na(df$x)
+
+(p | p2)/p2
+
+
+
+iris %>% 
+  mutate(blink = Sepal.Width < 5) %>% 
+  ggplot(aes(x=Sepal.Length,
+             y = Sepal.Width,
+             color = Species)) +
+  geom_point(data = iris %>% filter(Sepal.Length > 6), size = 3) +
+  geom_point(data = iris %>% mutate(Sepal.Length <= 3), color = "black")
+#mutate modifies the data that will be plotted  
+#overlaying two different types of graph on each other
+  
+
+#############################
+#review 
+  #sub-setting
+  #true false 
+  #if else statements (==, =>, is.na)
+
+
+#############################
+#WEEK 6
+
+#############################
+#Week 8
+library (tidyverse)
+
+myfunction <- function(x){return(x+3)}
+secondfunction <- function(x=10){return(x+3)} 
+
+myfunction (x=10)
+secondfunction ()
+
+
+#LISTS
+  #New class of objects called list, similar to vector but
+  #can contain a variety of character types.
+  #Can hold several vectors like x below.
+
+  a <- 1:10
+  b <- letters
+  c <- c(TRUE, TRUE, FALSE)
+
+x <- list(a,b,c)
+  view(x)
+
+x[[1]]
+  #Gives first element in list
+
+x[[1]][3]
+  #Gives the third value in the first element in list x
+
+x[[1:3]][1]
+
+for (i in 1:3) {print(x[[i]][1])}
+i <- 1
+x[[i]][1]
+
+#PURRR / MAP
+  #For working with lists smoothly
+
+map(x,1)
+
+map_chr(x, 1)
+
+y <- list(a=iris,
+          b=mtcars)
+y
+map(y, class)
+
+map(x, class)
+  #Map can replace most functions done by a for loop
+
+
+#A function that takes first and second columns of list y and 
+# multiplies them. Creating a new column named "products"
+
+newcol <- y[[1]][ ,1] * y[[1]][ ,2]
+y[[1]]["products"] <- newcol
+
+
+newcol <- z[ ,1] * z[ ,2]
+z["products"] <- newcol
+
+make_products <- 
+function(z){
+  newcol <- z[ ,1] * z[ ,2]
+  z["products"] <- newcol
+  return(z)}
+
+lappy(iris, as.character) 
+lappy(y, make_products)
+  #Apply to list
+map(y, make_products)
+  #Successor to lappy
+
+
+
+
+function(z){
+  if(!is.numeric(z[ ,1])){
+    stop("Hey idot a column is not numeric. TRY AGAIN!")
+  }
+  newcol <- z[ ,1] * z[ ,2]
+  z["products"] <- newcol
+  return(z)
+}
+#Stop if there is a non numeric value with in x
+#not equal = !
+
+y$a$Sepal.Length <- as.character(y$a$Sepal.Length)
+
+make_new <- 
+function(z){
+  if(!is.numeric(z[ ,1])){
+    stop("Hey idot a column is not numeric. TRY AGAIN!")
+    z[ ,1] <- as.numeric(x[ ,1])
+  }
+  newcol <- z[ ,1] * z[ ,2]
+  z["products"] <- newcol
+  return(z)
+}
+#Would also convert incorrectly formatted column to the correct numeric version
+
+map(y, make_new)
+
+# PURRR has the key features map and reduce
+  #map- convert aspects of a list
+  #reduce- convert a list of multiple data.frames to a single data.frame
+ 
+
+########################################
+#############################
+#Models
+library(tidyverse)
+
+mpg
+mpg %>% names
+#Scientists usually gather all data that MIGHT be influential 
+
+mpg %>% 
+  ggplot(aes(x = displ,
+             y = hwy))          +
+  geom_smooth(method = 'lm')
+#Statistical models help us be LESS WRONG when making assumptions
+
+mpg$hwy %>% mean
+
+mpg %>% 
+  ggplot(aes(x = displ,
+             y = hwy,
+             color = factor(cyl)))          +
+  geom_smooth(method = 'lm')
+#GGPLOT is running linear models(y=mx+b) in the background
+
+glm()
+#generalized linear model
+
+mpg %>% names
+
+m <- glm(data = mpg,
+    formula = hwy ~ displ)
+#Generalized linear model regression using mpg data frame,
+# find highway as a function of displacement
+
+m
+
+summary(m)
+
+m$coefficients
+  #values for the y=mx+b equation
+
+
+n <- glm(data = mpg,
+         formula = hwy ~ displ + factor(cyl))
+
+summary(n)
+
+
+
+install.packages('modelr')
+library(modelr)
+
+preds <- 
+add_predictions(mpg, m)
+
+preds
+
+preds %>% 
+  ggplot(aes(x = displ,
+             color = factor(cyl)))  +
+  geom_point(aes(y = hwy),
+             color = 'black')       +
+  geom_smooth(method = 'lm',
+              aes(y = preds))
+
+
+#############################
+library(tidyvrse)
+library(palmerpenguins)
+#install.packages('easystats')
+library(easystats)
+penguins %>% 
+  ggplot(aes(y = bill_depth_mm,
+             x = bill_length_mm)) +
+  geom_point() +
+  geom_smooth(method = 'lm') #+
+ #coord_cartesian(xlim = c(0,60))
+
+#Making a linear regression of this plot
+glm()
+y~x
+
+glm(data = penguins,
+    formula = bill_depth_mm ~ bill_length_mm) %>%  
+ summary()
+#intercept estimate is 20.88547 (y intercept, x=0)
+  #which is the average estimate from the linear regression
+#bill_length_mm estimate is the slope of the linear regression line
+
+
+aov(glm(data = penguins,
+        formula = bill_depth_mm ~ bill_length_mm) %>%  
+     summary())
+
+
+#adding another predicting variable (species)
+penguins %>% 
+  ggplot(aes(y = bill_depth_mm,
+             x = bill_length_mm,
+             color = species)) +
+  geom_point() +
+  geom_smooth(method = 'lm') 
+
+
+  glm(data = penguins,
+      formula = bill_depth_mm ~ bill_length_mm) %>%  
+    summary()
+  
+M1 <- glm(data = penguins,
+          formula = bill_depth_mm ~ bill_length_mm)
+M1
+
+glm(data = penguins,
+      formula = bill_depth_mm ~ bill_length_mm + species) %>%  
+   summary()
+M2 <- 
+  glm(data = penguins,
+      formula = bill_depth_mm ~ bill_length_mm + species)
+M2
+#The species Adelie is the default for intercept values
+  #chosen by alphabetical order
+  #so the other species need to be adjust from the default
+#AIC is useful for comparing models
+  #a lower AIC means a better model
+
+glm(data = penguins,
+      formula = bill_depth_mm ~ bill_length_mm * species) %>%  
+    summary()
+M3 <- 
+  glm(data = penguins,
+      formula = bill_depth_mm ~ bill_length_mm * species)
+M3 
+#introducing the interaction term between bill length and species
+  #slope can vary between species
+  #tells whether bill_length is dependent on species
+
+
+#AIC comparison of models
+M1$aic
+M2$aic
+M3$aic
+
+compare_performance(M1, M2, M3)
+
+compare_performance(M1, M2, M3) %>% plot
+#shows that M2 is in fact the best model out of the 3
+
+#MODELS
+  #are imperfect
+    #allow us to extrapolate information that we dont yet know
+  #allow us to try and understand reality
+
+
+names(penguins)
+
+M4 <- 
+  glm(data=penguins,
+      formula = bill_depth_mm ~ bill_length_mm * species + sex)
+
+M4
+
+penguins %>% 
+  ggplot(aes(y = bill_depth_mm,
+             x = bill_length_mm,
+             color = species)) +
+  geom_point() +
+  geom_smooth(method = 'lm',) 
+
+compare_performance(M1, M2, M3, M4) %>% plot
+
+M5 <-   
+  glm(data=penguins,
+      formula = bill_depth_mm ~ bill_length_mm * species + sex + island)
+
+compare_performance(M1, M2, M3, M4, M5) %>% plot
+
+formula(M5)
+w <- data.frame(bill_length_mm = 5,000,
+           species = 'Chinstrap',
+           sex = 'male',
+           island ='Dream')
+predict(M5,newdata = w)
+
+s <- data.frame(bill_length_mm = 5,000,
+                species = c('Chinstrap','Chinstrap'),
+                sex = c('male','male'),
+                island = c('Dream', 'Dream'))
+predict(M5,newdata = s)
+
+
+
+mpg %>% 
+  ggplot(aes(x = displ, y = hwy, color = factor(cyl))) +
+  geom_point() +
+  geom_smooth(method = 'lm')
+
+mpg %>% 
+  ggplot(aes(x=displ, y=hwy)) +
+  geom_point() +
+  geom_smooth(method = 'lm')
+  
+t <- data.frame(displ = 500)
+M6 <- glm(data=mpg,
+          formula = hwy~displ)
+predict(M6,t)
+  #gives the impossible gas mileage of -1730
+    #Horrible extrapolation
+  #do not try to use your model for data it has not seen
+    #only use data within the data or a small portion away
+l <- data.frame(displ = 4.5)
+predict(M6, l)
+p <- data.frame(displ = 8)
+predict(M6, p)
+
+
+#t <- data.frame(displ = 500)
+M7 <- glm(data=mpg,
+          formula = hwy~log(displ))
+predict(M7,t)
+  #in the log scale
+10^predict(M7,t)
+  #actual result
+
+
+mpg %>% 
+  ggplot(aes(x = displ, y = hwy)) +
+  geom_point() +
+  geom_smooth(method = 'lm', formula = y~poly(x,3))
+
+mpg %>% 
+  ggplot(aes(x = displ, y = hwy)) +
+  geom_point() +
+  geom_smooth(method = 'lm', formula = y~log(x,3))
+
+#MODELS
+  #Trying to better understand the world
+
+
+Titanic
+Titanic %>% as.data.frame()
+
+
+
+#LOGISTICAL REGRESSIONS
+df <- read_csv("./Data/GradSchool_Admissions.csv")
+  #admit = True or False
+  #gre = test score
+  #gpa = grade point average
+  #rank = ranking of their undergrad school
+df <- 
+  df %>% 
+  mutate(admit = as.logical(admit))
+
+M8 <- glm(data=df,
+    formula = admit ~ gre + gpa +rank)
+
+summary(M8)
+
+#Logistic regression (outcome is TRUE/FALSE)
+  #logistic -> family ='binomial
+M9 <- glm(data=df,
+          formula = admit ~ gre + gpa +rank,
+          family = 'binomial')
+
+summary(M9)
+
+library(modelr)
+
+add_predictions(df, M9)
+  #log odd predictions
+
+add_predictions(df, M9, type = 'response')
+  #percentages = 100 * predictions
+
+add_predictions(df, M9, type = 'response') %>% 
+  ggplot(aes(x=gpa, 
+             y=pred))+
+  geom_smooth()
+  
+
+add_predictions(df, M9, type = 'response') %>% 
+  ggplot(aes(x=gpa, 
+             y=pred,
+             color = factor(rank)))+
+  geom_smooth()
+
+#############################
+#10/17/2023
+df <- read_csv("./Data/GradSchool_Admissions.csv")
+#admit = True or False
+#gre = test score
+#gpa = grade point average
+#rank = ranking of their undergrad school
+df <- 
+  df %>% 
+  mutate(admit = as.logical(admit))
+
+M8 <- glm(data=df,
+          formula = admit ~ gre + gpa +rank)
+
+summary(M8)
+
+#Logistic regression (outcome is TRUE/FALSE)
+#logistic -> family ='binomial
+M9 <- glm(data=df,
+          formula = admit ~ gre + gpa +rank,
+          family = 'binomial')
+
+summary(M9)
+
+library(modelr)
+
+add_predictions(df, M9)
+#log odd predictions
+
+add_predictions(df, M9, type = 'response')
+#percentages = 100 * predictions
+
+add_predictions(df, M9, type = 'response') %>% 
+  ggplot(aes(x=gpa, 
+             y=pred))+
+  geom_smooth()
+
+??add_predictions
+
+add_predictions(df, M9, type = 'response') %>% 
+  ggplot(aes(x=gpa, 
+             y=pred,
+             color = factor(rank)))+
+  geom_smooth()
+
+
+m6 <- M9
+
+m6 <- glm(data=df,
+          formula = admit ~ gre * gpa * rank,
+          family = 'binomial')
+
+library(MASS)
+#overlaps Select from dplyr
+#will need to use dplr::select
+
+
+step <- stepAIC(m6)
+#algorithm to find the best fit model for you.
+
+step$formula
+#gives the formula for the best model
+
+mod_best <- 
+  glm(data= df,
+      family= 'binomial',
+      formula = step$formula)
+
+compare_performance(m6, M9, mod_best) %>% plot
+
+
+
+#Find best model for predicting penguin bill length
+library(palmerpenguins)
+
+  penguins <- penguins
+
+  penguins %>% names  
+
+  full_modp <- 
+    glm(data= penguins,
+        formula = bill_length_mm ~ .^2)
+  steps <- stepAIC(full_modp)
+  steps$formula
+
+  best_modp <- glm(data = penguins,
+                   formula = steps$formula)  
+
+  compare_performance(full_modp, best_modp)  
+
+  compare_performance(full_modp, best_modp)  %>% plot
+  
+#We built a model based on the entire data set 
+  #so we now have no data to test the model with.
+  
+  
+#####1-Train model on some data (not the whole data frame)
+#####2-TEST model on other data
+  
+  
+  dim(penguins)
+
+  .2* 344  #20% of the dataframe
+  
+  rbinom(10, 1, 0.5)
+  rbinom(10, 6, (1/6))
+  
+  rbinom(nrow(penguins), 1, 0.8)
+    #randomly assigning a 1 or 0 to each row of penguins 
+      #with a 80% probability of getting a 1 assigned
+  penguins$newcol <- 
+  penguins %>% 
+    mutate(newcol= rbinom(nrow(penguins), 1, 0.8))
+  #create a new column with random T/F(binomial)
+  #family of distributions 
+  
+  #use new column to split data set
+  trainp <- penguins %>% filter(newcol == 1)
+  testp <- penguins %>% filter(newcol == 0)
+  
+  #train model on train set
+  mod_best_penguins <- glm(data= trainp, formula = steps$formula)
+  
+  #calculating the absolute difference between actual and predicted bill length
+  predictions <- add_predictions(testp, mod_best_penguins)  
+
+  
+  predictions %>% view
+  
+  predictions %>% mutate(resid = abs(pred - bill_length_mm))
+  
+  View(predictions)
+  
+  mean(predictions$resid)
+  
+  mean(predictions$resid, na.rm = TRUE)
+  errors[i] <- mean_err
+  
+  predictions <- 
+    penguins %>% 
+    mutate(resid = abs(pred - bill_length_mm))  
+    
+  mean_err <- mean(predictions$resid, na.rm = TRUE)
+  errors[i] <- mean_err  
+  
+  data.frame(errors) %>% 
+    ggplot(aes(x = errors)) +
+    geom_density()
+
+  
+#############################  
+  #Machine learning
+  library(ranger)
+  ?ranger
+  
+  ranger(formula= Species ~ . ,
+         data = iris)
+  #I care about Species in relation to everything else
+    #basically if i give you a sepal length or other column value
+      #can you give me the species name
+  
+  r_mod <- ranger(formula= Species ~ . ,
+                  data = iris)
+
+  pred <- predict(r_mod, iris)
+  
+  data.frame(iris$Species, pred$predictions)  
+
+  
