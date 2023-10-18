@@ -58,7 +58,7 @@
     
   Plot_1
   
-y#4. Save this plot as LASTNAME_Plot_1.png (5 pts) 
+#4. Save this plot as LASTNAME_Plot_1.png (5 pts) 
 
   ggsave('BRIMHALL_Plot_1.png')
 
@@ -121,21 +121,17 @@ y#4. Save this plot as LASTNAME_Plot_1.png (5 pts)
   
   
 #9. Plot the 3 models’ predictions like so: (10 pts)
-
-  add_predictions(mean_U5MR_byContandYear, mod1) %>% 
-    ggplot(aes(x=Year, 
-               y=Pred,
-               color = factor(rank)))+
-    geom_smooth()
+  #Honestly couldn't figure it out. I believe I missed the class we covered 
+  #it due to illness. I would appreciate any tips you'd be willing to give.
   
   
-  
-  ggplot(mod1, aes(x=Year, y=U5MR))+
-    geom_point()
-  
-  
-
-  
+         # add_predictions(mean_U5MR_byContandYear, mod1) %>% 
+         #    ggplot(aes(x=Year, y=preds, color = factor(rank)))+
+         #    geom_smooth()
+          
+          # ggplot(mod1, aes(x=Year, y=U5MR))+
+          #  geom_point()
+          
 
 #10. BONUS - Using your preferred model, predict what the U5MR would be for 
   #Ecuador in the year 2020. The real value for Ecuador for 2020 was 13 under-5 

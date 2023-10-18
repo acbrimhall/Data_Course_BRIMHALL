@@ -611,7 +611,7 @@ summary(n)
 
 
 
-install.packages('modelr')
+#install.packages('modelr')
 library(modelr)
 
 preds <- 
