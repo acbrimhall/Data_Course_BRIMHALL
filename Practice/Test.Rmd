@@ -1,0 +1,76 @@
+---
+title: "Soil_Predators"
+author: "Brimhall, Abigial"
+date: "2023-10-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning=FALSE, message = FALSE)
+```
+
+This is text. Im gonna load a data set and try to clean it.
+ This section
+ 
+ Crt+alt+i gives a new r section to type in in R markdown
+ 
+```{r}
+library(tidyverse)
+path <- '../Data/Soil_Predators.csv'
+df <- read_csv(path, skip = 1, col_names = FALSE)
+badcolnames <- readLines(path, n=4)
+badcolnames <- badcolnames %>% str_replace_all(",_", "_") %>% str_split(",") %>% unlist()
+length(badcolnames)
+
+df <- df %>% select(-c(X25, X26))
+
+names(df) <- badcolnames
+skimr::skim(df) %>% 
+  as.data.frame() %>% 
+  kableExtra::kable() %>% 
+  kableExtra::kable_classic(lightable_options = 'hover')
+
+```
+
+Now I'm gonna analyze this thing.....
+
+First an image:
+```{r}
+knitr::include_graphics("~/Desktop/image.jpeg")
+```
+
+List of predator Species
+
+
+```{r}
+df$Predator_species %>% unique()
+```
+
+
+
+
+
+```{r}
+df$Prey_Richness <- 
+df %>% select(starts_with("Consumption")) %>% rowSums(na.rm = TRUE)
+
+
+p <- 
+df %>% 
+  ggplot(aes(x=Predator_development_stage,
+             y= Prey_Richness,
+             color= Predator_sex))+ 
+  geom_boxplot()
+
+plotly
+
+```
+
+
+
+
+
+
+
+
+

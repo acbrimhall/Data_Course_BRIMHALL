@@ -998,7 +998,7 @@ library(palmerpenguins)
     geom_density()
 
   
-#############################  
+#############################
   #Machine learning
   library(ranger)
   ?ranger
@@ -1016,4 +1016,38 @@ library(palmerpenguins)
   
   data.frame(iris$Species, pred$predictions)  
 
+
+########################################
+#############################
+#Looking at Final Projects
+  #Automate data pull from online sources
+    #Webscraping package: rvest
+    #Tutorial on Easily Harvest(Scrape)
+      #https://rvest.tidyverse.org
+    #Selector Gadget for firefox 
+      #allows you to click on a piece of a
+        #website and gives the address
+  #Dealing with animal DNA sequences
+    #phangorn-building tree for animals
+    #ape-Analysis
+    #DECIPHER- aligning genes
+    #NCBI datasets-Downloading different 
+      #sets of data
+  #Datasets Search (ncei.noaa.gov)
+  #To see Matlab files
+    #https://cran.r-project.org/package=R.matlab
+  
+  library(matlab)
+   
+#Final project will ultimately end up in R Markdown
+  #
+  
+  
+#############################
+  
+
+  
+  
+  
+  
   
